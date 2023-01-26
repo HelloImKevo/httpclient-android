@@ -8,8 +8,8 @@ export ANDROIDPROJECTPATH=${ROOTDIR}/${PROJECTNAME}
 export EXTRAPACKAGENAME=extras
 export KERBEROS_LIB_NAME="kerberos"
 
-export CORE_VER=4.4.11
-export CLIENT_VER=4.5.8
+export CORE_VER=4.4.x
+export CLIENT_VER=4.5.x
 
 : ${GRADLEW_VERSION:=2.14.1}
 : ${GRADLE_COMMAND:="gradle"}
@@ -68,12 +68,14 @@ if [ ${UPDATE_UPSTREAM} -eq 1 ]; then
   if [ -d "httpcore" ]; then
     rm -rf httpcore
   fi
+  echo -e ">> Cloning Apache HttpCore ${CORE_VER} @ https://github.com/apache/httpcomponents-core.git ${httpcore}"
   $GIT_COMMAND clone -b "${CORE_VER}" https://github.com/apache/httpcomponents-core.git httpcore
 
   echo -e ">> Downloading Upstream HttpClient ${CLIENT_VER}"
   if [ -d "httpclient" ]; then
     rm -rf httpclient
   fi
+  echo -e ">> Cloning Apache HttpClient ${CLIENT_VER} @ https://github.com/apache/httpcomponents-client.git ${httpclient}"
   $GIT_COMMAND clone -b "${CLIENT_VER}" https://github.com/apache/httpcomponents-client.git httpclient
 
   if [ ${INCLUDE_JGSS_API} -eq 1 ]; then
